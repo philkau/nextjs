@@ -9,7 +9,7 @@ import time
 import logging
 
 from datetime import date, datetime
-import MongoClient
+import pymongo
 
 import requests
 from lxml import etree
