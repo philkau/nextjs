@@ -18,7 +18,7 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     print ("Start...")
-    data = self.get_data_from_yahoo(2498)
+    data = self.get_data_from_yahoo('2498')
     
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
