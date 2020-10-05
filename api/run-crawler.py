@@ -17,11 +17,16 @@ from lxml import etree
 class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
+    print ("Start...")
+    data = self.get_data_from_yahoo(2498)
+    
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    data = self.get_data_from_yahoo(2498)
+    
     self.wfile.write(json.dumps(data))
+    
+    print ("End...")
     return
 
   def get_data_from_yahoo(self, stockId):
