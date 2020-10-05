@@ -23,10 +23,3 @@ class handler(BaseHTTPRequestHandler):
     self.wfile.write(str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode())
     return
 
-  def main():
-    currentTime = datetime.now()
-    logging.info("=== Start ==================================")
-    
-    # for correctness check, uncomment this
-    # endTime is obsolete for complete checks starting from 0.7
-    logging.info("=== Finish ==================================")
