@@ -116,6 +116,9 @@ class handler(BaseHTTPRequestHandler):
       item["varible"] = varible
     
       if ('debug' in self.params and self.params['debug'][0] == 'true'):
+        print (f'URL: {url}')
+        print (f'Response: {response}')
+        print (f'HTML: {html}')
         print (f'Data: {json.dumps(item)}')
       return item
 
