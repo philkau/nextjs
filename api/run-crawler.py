@@ -103,12 +103,15 @@ class handler(BaseHTTPRequestHandler):
           varible = float(varible.encode('utf8')[3:])
 
       item["varible"] = varible
-      
+    
+      return item
+
     except Exception as err:
       print (f'URL: {url}')
       print (f'Response: {response}')
       print (f'HTML: {html}')
       raise err
-          
-    return item
+
+    return {}
+    
 
