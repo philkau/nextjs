@@ -17,7 +17,7 @@ from lxml import etree
 class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
-    print (f`[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start...`)
+    print (f'[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start...')
     data = self.get_data_from_yahoo('2498')
     
     self.send_response(200)
@@ -26,7 +26,7 @@ class handler(BaseHTTPRequestHandler):
     
     self.wfile.write(json.dumps(data))
     
-    print (f`[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Finish`)
+    print (f'[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Finish')
     return
 
   def get_data_from_yahoo(self, stockId):
