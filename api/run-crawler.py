@@ -105,9 +105,9 @@ class handler(BaseHTTPRequestHandler):
       item["varible"] = varible
       
     except Exception as err:
-      print (f`URL: {url}`)
-      print (f`Response: {response}`)
-      print (f`HTML: {html}`)
+      print (f'URL: {url}')
+      print (f'Response: {response}')
+      print (f'HTML: {html}')
       raise err
           
     return item
