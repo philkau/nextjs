@@ -19,6 +19,7 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     print (f"[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start...")
+    print (self.path)
     if (self.path is not None):
       self.params = parse_qs(self.path)
     else:
