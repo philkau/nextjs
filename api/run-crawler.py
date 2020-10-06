@@ -10,7 +10,7 @@ import logging
 
 from datetime import date, datetime
 from pymongo import MongoClient
-from urllib.parse import parse_qs
+from urllib.parse import urlparse, parse_qs
 
 import requests
 from lxml import etree
@@ -19,12 +19,17 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     print (f"[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start...")
-    print (self.path)
-    if (self.path is not None):
-      self.params = parse_qs(self.path)
+
+    stock_id = '2498'
+    query_string = urlparse(self.path).query
+    if (query_string != ''):
+      self.params = parse_qs(query_string)
+      if ('stock_id' in self.params):
+        stock_id = self.params['stock_id'][0]
     else:
       self.params = {}
-    data = self.get_data_from_yahoo('2498')
+
+    data = self.get_data_from_yahoo(stock_id)
     
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
