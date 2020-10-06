@@ -10,6 +10,7 @@ import logging
 
 from datetime import date, datetime
 from pymongo import MongoClient
+from urllib.parse import parse_qs
 
 import requests
 from lxml import etree
@@ -18,6 +19,10 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     print (f"[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start...")
+    if (self.path is not None):
+      self.params = parse_qs(self.path)
+    else:
+      self.params = {}
     data = self.get_data_from_yahoo('2498')
     
     self.send_response(200)
@@ -104,6 +109,8 @@ class handler(BaseHTTPRequestHandler):
 
       item["varible"] = varible
     
+      if ('debug' in self.params and self.params['debug'][0] == 'true'):
+        print (f'Data: {json.dumps(item)}')
       return item
 
     except Exception as err:
