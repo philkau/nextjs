@@ -20,6 +20,7 @@ class handler(BaseHTTPRequestHandler):
   def do_GET(self):
     print (f"[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start ...")
     print(os.environ.get('KEY_THAT_MIGHT_EXIST'))
+    print(os.environ.get('mongo_uri'))
 
     stock_id = '2498'
     query_string = urlparse(self.path).query
