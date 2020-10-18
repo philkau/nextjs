@@ -40,12 +40,12 @@ class handler(BaseHTTPRequestHandler):
     totalCount = total_cursor.count()
     logging.info(f"There are {totalCount} predictions to be updated.")
 
-    predictions_cursor = collection.find({"isCompleted": False, "currentPriceUpdateTime": None}).sort("startTime").limit(1)
+    predictions_cursor = collection.find({"isCompleted": False, "checkTime": None}).sort("startTime").limit(1)
     new_predictions_totalCount = predictions_cursor.count()
     logging.info(f"There are {new_predictions_totalCount} new predictions to be updated.")
 
     if (new_predictions_totalCount == 0):
-      predictions_cursor = collection.find({"isCompleted": False, "currentPriceUpdateTime": {"$ne":None}}).sort("currentPriceUpdateTime").limit(1)
+      predictions_cursor = collection.find({"isCompleted": False, "checkTime": {"$ne":None}}).sort("checkTime").limit(1)
       elder_predictions_totalCount = predictions_cursor.count()
       logging.info(f"There are {elder_predictions_totalCount} elder predictions to be updated.")
 
