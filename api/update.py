@@ -80,6 +80,7 @@ class handler(BaseHTTPRequestHandler):
       document = documents[0]
       logging.debug(document)
 
+    prediction_updated = False
     try:
       id = document['_id']
       target = [document['stockId']]
@@ -196,7 +197,9 @@ class handler(BaseHTTPRequestHandler):
         document['isCompleted'] = True
         document['endPrice'] = endPrice
         document['currentPrice'] = currentPrice
+        document['checkTime'] = currentTime
         collection.save(document)
+        prediction_updated = True
         logging.debug(document)
 
         # update users DB
@@ -228,7 +231,9 @@ class handler(BaseHTTPRequestHandler):
       else:
         document['currentPrice'] = currentPrice
         document['currentPriceUpdateTime'] = currentTime
+        document['checkTime'] = currentTime
         collection.save(document)
+        prediction_updated = True
         logging.info(f"******This prediction {id} is not yet finished. Update current price.")
 
         
@@ -240,6 +245,9 @@ class handler(BaseHTTPRequestHandler):
     except Exception as err:
       logging.exception("Fail to process the prediction.")
       raise err
+      if (document and not prediction_updated):
+        document['checkTime'] = currentTime
+        collection.save(document)
 
     logging.info("=== Finish ==================================")
 
