@@ -83,7 +83,7 @@ class handler(BaseHTTPRequestHandler):
 
         # probably very inefficient, but will do for now
         # find the end price
-        data = self.get_data_from_yahoo(stock_id)
+        data = self.get_data_from_yahoo(targetStockID)
         
         if not data:
           print (f"FAULTY RESPONSE from YAHOO.")
