@@ -123,14 +123,14 @@ class handler(BaseHTTPRequestHandler):
         return
 
       # TODO: high & low price has weird bug, need to fix
-      if ('h' in stock_info and 'l' in stock_info and is_float(stock_info['h']) and is_float(stock_info['l'])):
+      if ('h' in stock_info and 'l' in stock_info and self.is_float(stock_info['h']) and self.is_float(stock_info['l'])):
         dayHigh = stock_info['h']
         dayLow = stock_info['l']
       else:
         logging.warning(f"There is no current price from the api!! Return Value: {stock_info}")
         return
 
-      if (not is_float(currentPrice)):
+      if (not self.is_float(currentPrice)):
         currentPrice = str(dayLow) + "-" + str(dayHigh);
 
       #print("DATA:" + str(data))
@@ -332,5 +332,12 @@ class handler(BaseHTTPRequestHandler):
       raise err
 
     return {}
-    
+
+  def is_float(self, s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 
