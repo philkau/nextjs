@@ -18,9 +18,15 @@ from lxml import etree
 class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
-    print (f"[{str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')).encode()}] Start ...")
-    print(os.environ.get('KEY_THAT_MIGHT_EXIST'))
-    print(os.environ.get('mongo_uri'))
+    # connect to Mongo
+    client = MongoClient(os.environ.get('mongo_uri'));
+    db = client.kandan
+    collection = db.predictions
+    
+    # Find the uncompleted predictions.
+    cursor = collection.find({"isCompleted": False})
+    totalCount = cursor.count()
+    print (f"There are {totalCount} predictions to be updated.")
 
     stock_id = '2498'
     query_string = urlparse(self.path).query
