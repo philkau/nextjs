@@ -172,6 +172,10 @@ class handler(BaseHTTPRequestHandler):
           # collection.save(document)
           logging.debug(document)
 
+      except Exception as err:
+        logging.error("Fail to process the prediction.")
+        logging.error(err)
+
     stock_id = '2498'
     
     data = self.get_data_from_yahoo(stock_id)
