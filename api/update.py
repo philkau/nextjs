@@ -231,6 +231,12 @@ class handler(BaseHTTPRequestHandler):
         collection.save(document)
         logging.info(f"******This prediction {id} is not yet finished. Update current price.")
 
+        
+      self.send_response(200)
+      self.send_header('Content-type', 'text/plain')
+      self.end_headers()
+      self.wfile.write(json.dumps(document).encode("utf-8"))
+      
     except Exception as err:
       logging.error("Fail to process the prediction.")
       logging.error(err)
