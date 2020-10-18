@@ -238,8 +238,8 @@ class handler(BaseHTTPRequestHandler):
       self.wfile.write(json.dumps(document).encode("utf-8"))
       
     except Exception as err:
-      logging.error("Fail to process the prediction.")
-      logging.error(err)
+      logging.exception("Fail to process the prediction.")
+      raise err
 
     logging.info("=== Finish ==================================")
 
