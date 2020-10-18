@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     # connect to Mongo
-    client = MongoClient(os.environ.get('mongo_uri'));
+    client = MongoClient(os.environ.get('NEXT_PUBLIC_MONGO_URL'));
     db = client.kandan
     collection = db.predictions
     
