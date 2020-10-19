@@ -241,7 +241,8 @@ class handler(BaseHTTPRequestHandler):
       self.send_header('Content-type', 'text/plain')
       self.end_headers()
       self.wfile.write(str(document).encode("utf-8"))
-      
+    except InvalidStockError as err:
+      logging.error(f"Please check if the stock is valid. Stock: {targetStockID}")
     except Exception as err:
       logging.exception("Fail to process the prediction.")
       raise err
@@ -273,6 +274,8 @@ class handler(BaseHTTPRequestHandler):
       response = req.get(url, headers={'Accept-Language': 'zh-TW'})
 
       html = etree.HTML(response.text)
+      if (len(html.xpath(xpath_date)) == 0):
+        raise InvalidStockError
       date = html.xpath(xpath_date)[0].text.split(':')[1].strip()
       stockName = html.xpath(xpath_stockName)[0].text.strip().replace(stockId,"")
       time = html.xpath(xpath_time)[0].text.strip()
@@ -350,4 +353,5 @@ class handler(BaseHTTPRequestHandler):
     except ValueError:
         return False
 
-
+class InvalidStockError(Exception):
+    pass 
