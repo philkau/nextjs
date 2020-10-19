@@ -245,9 +245,11 @@ class handler(BaseHTTPRequestHandler):
     except Exception as err:
       logging.exception("Fail to process the prediction.")
       raise err
+    finally:
       if (document and not prediction_updated):
         document['checkTime'] = currentTime
         collection.save(document)
+        logging.info ('Update the checkTime when there is something wrong.')
 
     logging.info("=== Finish ==================================")
 
