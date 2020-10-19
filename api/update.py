@@ -240,7 +240,7 @@ class handler(BaseHTTPRequestHandler):
       self.send_response(200)
       self.send_header('Content-type', 'text/plain')
       self.end_headers()
-      self.wfile.write(str(document))
+      self.wfile.write(str(document).encode("utf-8"))
       
     except Exception as err:
       logging.exception("Fail to process the prediction.")
